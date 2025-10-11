@@ -47,6 +47,7 @@ Builder.registerComponent(CTA_ready2findbin, {
 });
 
 // How It Works section
+
 Builder.registerComponent(HowItWorks, {
   name: "HowItWorks",
   inputs: [
@@ -77,6 +78,11 @@ Builder.registerComponent(HowItWorks, {
       name: "arrow",
       type: "string",
       defaultValue: "➝",
+    },
+    {
+      name: "fontSize",
+      type: "number",
+      defaultValue: 20,
     },
   ],
 });
