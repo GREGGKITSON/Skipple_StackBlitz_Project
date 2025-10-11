@@ -73,5 +73,10 @@ Builder.registerComponent(HowItWorks, {
         },
       ],
     },
+    {
+      name: "arrow",
+      type: "string",
+      defaultValue: "➝",
+    },
   ],
 });
