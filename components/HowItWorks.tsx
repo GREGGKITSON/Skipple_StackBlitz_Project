@@ -6,7 +6,8 @@ type Step = {
 type HowItWorksProps = {
   title?: string;
   steps?: Step[];
-  arrow?: string; // customizable arrow, can be text (➝) or an SVG
+  arrow?: string; // customizable arrow
+  fontSize?: number; // new: adjustable font size
 };
 
 export default function HowItWorks({
@@ -17,7 +18,8 @@ export default function HowItWorks({
     { label: "Compare quotes", icon: "/icons/dollaricon.svg" },
     { label: "Book online", icon: "/icons/bookicon.svg" },
   ],
-  arrow = "➝", // default arrow
+  arrow = "➝",
+  fontSize = 20, // default size
 }: HowItWorksProps) {
   return (
     <div className="bg-white text-center py-10">
@@ -39,12 +41,15 @@ export default function HowItWorks({
                   className="w-16 h-16"
                 />
               </div>
-              <span className="text-[20px] font-bold font-[Nunito]">
+              <span
+                className="font-bold font-[Nunito]"
+                style={{ fontSize: `${fontSize}px` }}
+              >
                 {step.label}
               </span>
             </div>
 
-            {/* Arrow: only show on desktop and not after last step */}
+            {/* Arrow */}
             {index < steps.length - 1 && (
               <span className="hidden sm:block text-2xl">{arrow}</span>
             )}
