@@ -6,7 +6,7 @@ type Step = {
 type HowItWorksProps = {
   title?: string;
   steps?: Step[];
-  arrow?: string; // customizable arrow, can be text (➝) or an SVG path
+  arrow?: string; // customizable arrow, can be text (➝) or an SVG
 };
 
 export default function HowItWorks({
@@ -21,18 +21,27 @@ export default function HowItWorks({
 }: HowItWorksProps) {
   return (
     <div className="bg-white text-center py-10">
-      <h2 className="text-2xl font-bold mb-8">{title}</h2>
+      <h2 className="text-2xl font-bold mb-8 font-[Nunito]">{title}</h2>
 
       {/* Flex: vertical on mobile, horizontal on desktop */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
         {steps.map((step, index) => (
-          <div key={index} className="flex flex-col sm:flex-row items-center gap-6">
+          <div
+            key={index}
+            className="flex flex-col sm:flex-row items-center gap-6"
+          >
             {/* Step block */}
             <div className="flex flex-col items-center">
-              <div className="bg-[#ff914d] w-16 h-16 rounded-full flex items-center justify-center mb-2">
-                <img src={step.icon} alt={step.label} className="w-10 h-10" />
+              <div className="bg-[#ff914d] w-20 h-20 rounded-full flex items-center justify-center mb-2">
+                <img
+                  src={step.icon}
+                  alt={step.label}
+                  className="w-16 h-16"
+                />
               </div>
-              <span className="text-sm font-medium">{step.label}</span>
+              <span className="text-[20px] font-bold font-[Nunito]">
+                {step.label}
+              </span>
             </div>
 
             {/* Arrow: only show on desktop and not after last step */}
