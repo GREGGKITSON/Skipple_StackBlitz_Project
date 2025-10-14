@@ -2,15 +2,47 @@
 
 import React from "react";
 
+type RawItem =
+  | string
+  | { text?: string; title?: string; description?: string | null }
+  | null
+  | undefined;
+
 interface AboutSection {
   heading: string;
   content: string;
-  listItems?: { title: string; description: string }[];
+  listItems?: RawItem[];
 }
 
 interface AboutPageProps {
   title?: string;
   sections?: AboutSection[];
+}
+
+function normalizeListItems(items?: RawItem[]) {
+  if (!items || !Array.isArray(items)) return [];
+  return items
+    .map((it) => {
+      if (!it) return null;
+
+      // string -> { title, description: "" }
+      if (typeof it === "string") {
+        return { title: it, description: "" };
+      }
+
+      // object with "text" (old schema)
+      if (typeof it === "object" && it.text && !it.title) {
+        return { title: String(it.text), description: it.description ? String(it.description) : "" };
+      }
+
+      // object with "title" (+ optional description)
+      if (typeof it === "object" && it.title) {
+        return { title: String(it.title), description: it.description ? String(it.description) : "" };
+      }
+
+      return null;
+    })
+    .filter(Boolean) as { title: string; description: string }[];
 }
 
 export default function AboutPage({
@@ -31,14 +63,8 @@ export default function AboutPage({
       content:
         "The skip hire industry is full of reliable, hardworking suppliers—but most are family-run businesses with limited digital presence. Customers now expect instant booking and upfront pricing, but suppliers are often stuck juggling phone calls, admin, and outdated websites.",
       listItems: [
-        {
-          title: "Customers",
-          description: "Want speed, transparency, and convenience.",
-        },
-        {
-          title: "Suppliers",
-          description: "Want more business without drowning in admin.",
-        },
+        { title: "Customers", description: "Want speed, transparency, and convenience." },
+        { title: "Suppliers", description: "Want more business without drowning in admin." },
       ],
     },
     {
@@ -47,36 +73,18 @@ export default function AboutPage({
       listItems: [
         { title: "Instant Quotes", description: "No waiting, upfront pricing." },
         { title: "Easy Online Booking", description: "Fast, simple, digital." },
-        {
-          title: "Transparent Pricing",
-          description: "Clear pricing with no hidden fees.",
-        },
-        {
-          title: "Verified Local Suppliers",
-          description: "Trusted, licensed, and vetted providers.",
-        },
+        { title: "Transparent Pricing", description: "Clear pricing with no hidden fees." },
+        { title: "Verified Local Suppliers", description: "Trusted, licensed, and vetted providers." },
       ],
     },
     {
       heading: "The Skipple Solution (continued)",
       content: "For skip owners:",
       listItems: [
-        {
-          title: "More Jobs",
-          description: "Increase bookings and reduce downtime.",
-        },
-        {
-          title: "Automated Bookings",
-          description: "Manage payments and jobs seamlessly.",
-        },
-        {
-          title: "No Upfront Costs",
-          description: "We only take a small margin per job.",
-        },
-        {
-          title: "Digital Visibility",
-          description: "Get seen online without tech headaches.",
-        },
+        { title: "More Jobs", description: "Increase bookings and reduce downtime." },
+        { title: "Automated Bookings", description: "Manage payments and jobs seamlessly." },
+        { title: "No Upfront Costs", description: "We only take a small margin per job." },
+        { title: "Digital Visibility", description: "Get seen online without tech headaches." },
       ],
     },
     {
@@ -91,53 +99,41 @@ export default function AboutPage({
       {/* Page Title */}
       <h1 className="text-3xl font-extrabold text-center mb-12">{title}</h1>
 
-      {sections.map((section, index) => (
-        <div key={index} className="mb-16">
-          {/* Section Heading */}
-          <h2 className="text-2xl font-bold text-white bg-black px-6 py-3 rounded text-center tracking-tight">
-            {section.heading}
-          </h2>
+      {sections.map((section, index) => {
+        const items = normalizeListItems(section.listItems);
 
-          {/* Orange line */}
-          <div className="w-24 h-1 bg-[#ff914d] mx-auto my-6 rounded"></div>
+        return (
+          <div key={index} className="mb-16">
+            {/* Section Heading */}
+            <h2 className="text-2xl font-bold text-white bg-black px-6 py-3 rounded text-center tracking-tight">
+              {section.heading}
+            </h2>
 
-          {/* Section content */}
-          <p className="text-lg text-center mb-8 leading-relaxed">
-            {section.content}
-          </p>
+            {/* Orange line */}
+            <div className="w-24 h-1 bg-[#ff914d] mx-auto my-6 rounded"></div>
 
-          {/* Cards with fallback defaults */}
-          {section.listItems && section.listItems.length > 0 ? (
-            <div className="grid md:grid-cols-2 gap-6">
-              {section.listItems.map((item, i) => (
-                <div
-                  key={i}
-                  className="bg-[#fff7f0] border border-[#ff914d] rounded-xl p-6 shadow-sm text-center"
-                >
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-base text-gray-700 leading-snug">
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            // Fallback if Builder sends no listItems
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-[#fff7f0] border border-[#ff914d] rounded-xl p-6 shadow-sm text-center">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  Example Title
-                </h3>
-                <p className="text-base text-gray-700 leading-snug">
-                  Example description text goes here.
-                </p>
+            {/* Section content */}
+            <p className="text-lg text-center mb-8 leading-relaxed">{section.content}</p>
+
+            {/* Cards */}
+            {items.length > 0 ? (
+              <div className="grid md:grid-cols-2 gap-6">
+                {items.map((item, i) => (
+                  <div
+                    key={i}
+                    className="bg-[#fff7f0] border border-[#ff914d] rounded-xl p-6 shadow-sm text-center"
+                  >
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                    {item.description ? (
+                      <p className="text-base text-gray-700 leading-snug">{item.description}</p>
+                    ) : null}
+                  </div>
+                ))}
               </div>
-            </div>
-          )}
-        </div>
-      ))}
+            ) : null}
+          </div>
+        );
+      })}
     </section>
   );
 }
