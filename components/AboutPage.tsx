@@ -14,7 +14,7 @@ interface AboutPageProps {
 }
 
 export default function AboutPage({
-  title = "About Skipple", // ✅ default sample title
+  title = "About Skipple",
   sections = [
     {
       heading: "Skip Hire, Simplified.",
@@ -61,7 +61,10 @@ export default function AboutPage({
       heading: "The Skipple Solution (continued)",
       content: "For skip owners:",
       listItems: [
-        { title: "More Jobs", description: "Increase bookings and reduce downtime." },
+        {
+          title: "More Jobs",
+          description: "Increase bookings and reduce downtime.",
+        },
         {
           title: "Automated Bookings",
           description: "Manage payments and jobs seamlessly.",
@@ -84,34 +87,53 @@ export default function AboutPage({
   ],
 }: AboutPageProps) {
   return (
-    <section className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-extrabold text-center mb-10">{title}</h1>
+    <section className="max-w-6xl mx-auto px-4 py-12 font-nunito">
+      {/* Page Title */}
+      <h1 className="text-3xl font-extrabold text-center mb-12">{title}</h1>
 
       {sections.map((section, index) => (
-        <div key={index} className="mb-12">
-          {/* Section Heading with dark background */}
-          <h2 className="text-2xl font-bold text-white bg-neutral-800 px-6 py-3 rounded text-center">
+        <div key={index} className="mb-16">
+          {/* Section Heading */}
+          <h2 className="text-2xl font-bold text-white bg-black px-6 py-3 rounded text-center tracking-tight">
             {section.heading}
           </h2>
 
-          {/* Orange separator line */}
-          <div className="w-16 h-1 bg-orange-400 mx-auto my-6 rounded"></div>
+          {/* Orange line */}
+          <div className="w-24 h-1 bg-[#ff914d] mx-auto my-6 rounded"></div>
 
-          {/* Content */}
-          <p className="text-lg text-center mb-6">{section.content}</p>
+          {/* Section content */}
+          <p className="text-lg text-center mb-8 leading-relaxed">
+            {section.content}
+          </p>
 
-          {/* Cards (instead of bullet points) */}
-          {section.listItems && (
+          {/* Cards with fallback defaults */}
+          {section.listItems && section.listItems.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-6">
               {section.listItems.map((item, i) => (
                 <div
                   key={i}
-                  className="bg-orange-100 rounded-lg p-6 shadow-sm text-center"
+                  className="bg-[#fff7f0] border border-[#ff914d] rounded-xl p-6 shadow-sm text-center"
                 >
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-gray-700">{item.description}</p>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-base text-gray-700 leading-snug">
+                    {item.description}
+                  </p>
                 </div>
               ))}
+            </div>
+          ) : (
+            // Fallback if Builder sends no listItems
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-[#fff7f0] border border-[#ff914d] rounded-xl p-6 shadow-sm text-center">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  Example Title
+                </h3>
+                <p className="text-base text-gray-700 leading-snug">
+                  Example description text goes here.
+                </p>
+              </div>
             </div>
           )}
         </div>
