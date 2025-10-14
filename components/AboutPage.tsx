@@ -105,12 +105,13 @@ export default function AboutPage({
         return (
           <div key={index} className="mb-16">
             {/* Section Heading */}
-            <h2 className="text-2xl font-bold text-white bg-black px-6 py-3 rounded text-center tracking-tight">
+        <h2 className="text-2xl font-bold text-white bg-[linear-gradient(#1a1a1a,#000000)] px-6 py-3 rounded text-center tracking-tight">
+
               {section.heading}
             </h2>
 
             {/* Orange line */}
-            <div className="w-24 h-1 bg-[#ff914d] mx-auto my-6 rounded"></div>
+            <div className="w-full h-1 bg-[#ff914d] my-4 rounded"></div>
 
             {/* Section content */}
             <p className="text-lg text-center mb-8 leading-relaxed">{section.content}</p>
@@ -121,7 +122,7 @@ export default function AboutPage({
                 {items.map((item, i) => (
                   <div
                     key={i}
-                    className="bg-[#fff7f0] border border-[#ff914d] rounded-xl p-6 shadow-sm text-center"
+                    className="bg-[#ff914d] text-white rounded-xl p-6 shadow-md text-center"
                   >
                     <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
                     {item.description ? (
