@@ -110,6 +110,26 @@ Builder.registerComponent(AboutPage, {
             "Skipple was born out of a simple frustration in 2025, when founders Gregg and Tanya were building their dream home. Clearing out the old house should have been easy—but finding a skip turned into days of phone calls and confusing quotes. That’s when the idea for Skipple was born: a smarter, digital way to hire skips.",
         },
         {
+          heading: "The Vision",
+          content:
+            "Skipple is the Airbnb of skip bins. We don’t own skips—we connect the people who need them with the legends who do. Our mission is to transform skip hire into a fast, transparent, and hassle-free experience.",
+        },
+        {
+          heading: "The Problem We Solve",
+          content:
+            "The skip hire industry is full of reliable, hardworking suppliers—but most are family-run businesses with limited digital presence. Customers now expect instant booking and upfront pricing, but suppliers are often stuck juggling phone calls, admin, and outdated websites.",
+          listItems: [
+            {
+              title: "Customers",
+              description: "Want speed, transparency, and convenience.",
+            },
+            {
+              title: "Suppliers",
+              description: "Want more business without drowning in admin.",
+            },
+          ],
+        },
+        {
           heading: "The Skipple Solution",
           content: "For customers:",
           listItems: [
@@ -118,6 +138,33 @@ Builder.registerComponent(AboutPage, {
             { title: "Transparent Pricing", description: "Clear pricing, no hidden fees." },
             { title: "Verified Suppliers", description: "Trusted, licensed, vetted providers." },
           ],
+        },
+        {
+          heading: "The Skipple Solution (continued)",
+          content: "For skip owners:",
+          listItems: [
+            {
+              title: "More Jobs",
+              description: "Increase bookings and reduce downtime.",
+            },
+            {
+              title: "Automated Bookings",
+              description: "Manage payments and jobs seamlessly.",
+            },
+            {
+              title: "No Upfront Costs",
+              description: "We only take a small margin per job.",
+            },
+            {
+              title: "Digital Visibility",
+              description: "Get seen online without tech headaches.",
+            },
+          ],
+        },
+        {
+          heading: "Meet the Skip People",
+          content:
+            "We’re not just building a platform—we’re building a community. Skipple empowers local skip businesses while making waste removal smarter, cleaner, and more human. Because skip hire shouldn’t be a headache. It should be simple.",
         },
       ],
     },
